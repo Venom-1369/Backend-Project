@@ -10,5 +10,8 @@
   "keywords": [],
   "author": "Gaurav Mane",
   "license": "ISC",
-  "description": "This is Backend Project"
+  "description": "This is Backend Project",
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
 }
