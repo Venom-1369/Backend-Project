@@ -14,4 +14,20 @@ app.use(express.json({limit : "15kb"}))//which helps to avoid server crash from 
 app.use(express.urlencoded({extended:true,limit:"15kb"}))
 app.use(express.static("public"))
 app.use(cookieParser())
+
+
+
+
+//Import Routes
+
+import userRouter from "./routes/user.routes.js"
+
+
+//Routes Declaration
+
+app.use("/api/v1/users" , userRouter)
+
+
+
+
 export {app};
