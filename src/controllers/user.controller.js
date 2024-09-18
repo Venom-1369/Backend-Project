@@ -3,12 +3,14 @@ import {ApiError} from "../utils/ApiError.js"
 import {User} from "../models/user.model.js"
 import {uploadOnCloudinary}  from "../utils/cloudinary.js"
 import {ApiResponse} from "../utils/ApiResponce.js"
+import path from 'path';
 
 const registerUser = asyncHandler(async (req , res) => {
     // res.status(200).json({
     //     message : "ok"
     // })
 
+    console.log('Files:', req.files);
     const {fullName , email , username , password} = req.body
     
 
@@ -30,10 +32,13 @@ const registerUser = asyncHandler(async (req , res) => {
         throw new ApiError(409,"User with same email or username already exists !")
     }
 
+    console.log(req.files);
 
     const avatarLocalPath = req.files?.avatar[0]?.path;
-
     const coverImageLocalPath = req.files?.coverImage[0]?.path;
+
+    console.log('Avatar Path:', avatarLocalPath);
+    console.log('Cover Image Path:', coverImageLocalPath);
 
     if(!avatarLocalPath)
     {
@@ -52,7 +57,7 @@ const registerUser = asyncHandler(async (req , res) => {
     }
 
 
-    const user = User.create({
+    const user = await User.create({
         fullName,
         avatar : avatar.url,
         coverImage : coverImage?.url || "",
